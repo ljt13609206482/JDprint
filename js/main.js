@@ -1,4 +1,11 @@
-jQuery(function($) {'use strict',
+jQuery(function($) {
+	//页面加载时获取导航参数
+	var num=location.search.split("x=")[1];
+	console.log(num);
+	if(!num){
+		num=1;
+	}
+	$(".navbar-nav").children("li:eq("+(num-1)+")").addClass("active").siblings().removeClass("active");
 
 	//主页面滚动事件
 	$(function(){
@@ -8,7 +15,7 @@ jQuery(function($) {'use strict',
 	});
 
 
-	// accordian
+	// accordion
 	$('.accordion-toggle').on('click', function(){
 		$(this).closest('.panel-group').children().each(function(){
 		$(this).find('>.panel-heading').removeClass('active');
@@ -66,5 +73,12 @@ jQuery(function($) {'use strict',
 	//图片展示
 	$("a[rel^='prettyPhoto']").prettyPhoto({
 		social_tools: false
-	});	
+	});
+	$("ul.navbar-nav").on("click","li a",function(e){
+		e.preventDefault();
+		$tar=$(e.target);
+		var url=$tar.attr("href");
+		console.log(url);
+		location.href=url;
+	})
 });
